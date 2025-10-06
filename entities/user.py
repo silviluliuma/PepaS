@@ -3,11 +3,9 @@ from datetime import datetime
 from typing import Optional
 
 @dataclass
-class Transaction:
+class User:
     id: Optional[int]
-    user_id: Optional[int]
-    type: str
-    amount: float
-    category_id: Optional[int]
+    name: str
+    email: str
+    phone: str
     created_at: Optional[datetime]
-    description: str = ""

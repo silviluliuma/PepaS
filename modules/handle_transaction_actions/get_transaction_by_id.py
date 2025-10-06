@@ -13,7 +13,7 @@ def get_transaction_by_id(self, transaction_id: int) -> Transaction | None:
     try:
         with conn.cursor() as cursor:
             cursor.execute("""
-                SELECT id, user_id, type, amount, category_id, description, created_at
+                SELECT id, user_id, type, amount, category_id, created_at, description
                 FROM transactions 
                 WHERE id = %s
             """, (transaction_id,))
@@ -26,8 +26,8 @@ def get_transaction_by_id(self, transaction_id: int) -> Transaction | None:
                     type=row[2],
                     amount=row[3],
                     category_id=row[4],
-                    description=row[5],
-                    created_at=row[6]
+                    created_at=row[5],
+                    description=row[6]
                 )
             return None
             

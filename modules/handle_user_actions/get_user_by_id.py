@@ -1,0 +1,35 @@
+import logging
+from entities.user import User
+
+logger = logging.getLogger(__name__)
+
+def get_user_by_id(self, user_id: int) -> User | None:
+        conn = self.db_manager.get_connection()
+        if not conn:
+            logger.error("There was an error getting the connection to the database")
+            return None
+
+        try:
+            with conn.cursor() as cursor:
+                cursor.execute("""
+                    SELECT id, user_name, user_email, user_phone, created_at
+                    FROM users
+                    WHERE id = %s
+                """, (user_id,))
+                
+                result = cursor.fetchone()
+                if result:
+                    return User(
+                        id=result[0],
+                        name=result[1],
+                        email=result[2],
+                        phone=result[3],
+                        created_at=result[4]
+                    )
+                return None
+                
+        except Exception as e:
+            logger.error(f"There was an error getting the user: {e}")
+            return None
+        finally:
+            conn.close()

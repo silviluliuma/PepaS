@@ -14,7 +14,7 @@ def create_transaction(self, transaction: Transaction) -> int | None:
     try:
         with conn.cursor() as cursor:
             cursor.execute("""
-                INSERT INTO transactions (user_id, type, amount, category_id, description, created_at)
+                INSERT INTO transactions (user_id, type, amount, category_id, created_at, description)
                 VALUES (%s, %s, %s, %s, %s, %s)
                 RETURNING id
             """, (
@@ -22,8 +22,8 @@ def create_transaction(self, transaction: Transaction) -> int | None:
                 transaction.type,
                 transaction.amount,
                 transaction.category_id,
+                transaction.created_at,
                 transaction.description,
-                transaction.created_at
             ))
             
             transaction_id = cursor.fetchone()[0]

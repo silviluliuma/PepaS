@@ -13,7 +13,7 @@ def get_transactions_by_user(self, user_id: int, limit: int = 10) -> list[Transa
     try:
         with conn.cursor() as cursor:
             cursor.execute("""
-                SELECT id, user_id, type, amount, category_id, description, created_at
+                SELECT id, user_id, type, amount, category_id, created_at, description
                 FROM transactions 
                 WHERE user_id = %s
                 ORDER BY created_at DESC
@@ -28,8 +28,8 @@ def get_transactions_by_user(self, user_id: int, limit: int = 10) -> list[Transa
                     type=row[2],
                     amount=row[3],
                     category_id=row[4],
-                    description=row[5],
-                    created_at=row[6]
+                    created_at=row[5],
+                    description=row[6],
                 )
                 transactions.append(transaction)
             

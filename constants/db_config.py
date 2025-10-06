@@ -1,4 +1,7 @@
+import dotenv
 import os
+
+dotenv.load_dotenv()
 
 DB_CONFIG = {
     "host": os.getenv("DB_HOST"),

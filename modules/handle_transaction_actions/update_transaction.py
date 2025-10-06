@@ -20,15 +20,15 @@ def update_transaction(self, transaction: Transaction) -> bool:
             cursor.execute("""
                 UPDATE transactions 
                 SET user_id = %s, type = %s, amount = %s, 
-                    category_id = %s, description = %s, created_at = %s
+                    category_id = %s, created_at = %s, description = %s
                 WHERE id = %s
             """, (
                 transaction.user_id,
                 transaction.type,
                 transaction.amount,
                 transaction.category_id,
-                transaction.description,
                 transaction.created_at,
+                transaction.description,
                 transaction.id
             ))
             
