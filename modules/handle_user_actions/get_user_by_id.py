@@ -1,6 +1,6 @@
 import logging
 
-from entities.user import User
+from database_entities.user import User
 from modules.init_database import get_db_connection
 
 logger = logging.getLogger(__name__)

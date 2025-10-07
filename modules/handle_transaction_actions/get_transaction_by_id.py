@@ -1,6 +1,6 @@
 import logging
 
-from entities.transaction import Transaction
+from database_entities.transaction import Transaction
 from modules.init_database import get_db_connection
 
 logger = logging.getLogger(__name__)
