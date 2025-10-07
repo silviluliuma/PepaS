@@ -1,12 +1,12 @@
 import logging
 
 from entities.transaction import Transaction
+from modules.init_database import get_db_connection
 
 logger = logging.getLogger(__name__)
 
-def create_transaction(self, transaction: Transaction) -> int | None:
-
-    conn = self.db_manager.get_connection()
+def create_transaction(transaction: Transaction) -> int | None:
+    conn = get_db_connection()
     if not conn:
         logger.error("There was an error getting the connection to the database")
         return None

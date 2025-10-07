@@ -1,9 +1,19 @@
 import logging
+from datetime import datetime
 
 from entities.transaction import Transaction
-from entities.transaction_manager import TransactionManager
 from entities.user import User
+from modules.handle_transaction_actions.create_transaction import create_transaction
+from modules.handle_transaction_actions.delete_transaction import delete_transaction
+from modules.handle_transaction_actions.get_transaction_by_id import get_transaction_by_id
+from modules.handle_transaction_actions.get_transactions_by_user import get_transactions_by_user
+from modules.handle_transaction_actions.update_transaction import update_transaction
+from modules.handle_user_actions.create_user import create_user
+from modules.handle_user_actions.get_user_by_email import get_user_by_email
 from modules.init_database import init_database
+
+# Configure logging to show in the terminal
+logging.basicConfig(level=logging.INFO)
 
 logger = logging.getLogger(__name__)
 
@@ -11,7 +21,9 @@ if __name__ == "__main__":
     logger.info("Hello PepaS! Starting the application...")
     
     # We test the connection to the database
-    conn = init_database()
+    if not init_database():
+        logger.error("Failed to connect to database")
+        exit(1)
     
     # We create a user to insert in database
     user = User(
@@ -19,78 +31,83 @@ if __name__ == "__main__":
         name="Silvia",
         email="silvia@example.com",
         phone="+3434567890",
-        created_at=None
+        created_at=datetime.now()
     )
     
     logger.info(f"User created: {user}")
     
-    # We create the user in the database
-    user_id = create_user(user)
+    # Check if user already exists
+    existing_user = get_user_by_email(user.email)
+    if existing_user:
+        logger.info(f"User already exists with ID {existing_user.id}")
+        user_id = existing_user.id
+    else:
+        # We create the user in the database
+        user_id = create_user(user)
+        
+        if not user_id:
+            logger.error("We couldn't create the user")
+            exit(1)
+        
+        logger.info(f"🎉 User created successfully with ID {user_id}!")
     
-    if not user_id:
-        logger.error("😞 No se pudo crear el usuario")
-        exit(1)
-    
-    logger.info(f"🎉 ¡Usuario creado exitosamente con ID {user_id}!")
-    
-    # Ahora creemos una transacción para este usuario
-    transaccion = Transaction(
+    # Now we create a transaction for this user
+    transaction = Transaction(
         id=None,
         user_id=user_id,
         type="expense",
         amount=50.0,
-        category_id=1,
+        category_id=None,  # Changed to None since category doesn't exist yet
         description="Almuerzo en restaurante",
-        created_at=None
+        created_at=datetime.now()
     )
     
-    logger.info(f"Transacción creada: {transaccion}")
+    logger.info(f"Transaction created: {transaction}")
     
-    # Probemos guardar en la base de datos
-    transaction_manager = TransactionManager()
-    transaction_id = transaction_manager.create_transaction(transaccion)
+    # We test to save in the database
+    transaction_id = create_transaction(transaction)
     
     if transaction_id:
-        logger.info(f"🎉 ¡Transacción guardada exitosamente con ID {transaction_id}!")
+        logger.info(f"🎉 Transaction saved successfully with ID {transaction_id}!")
         
-        # Probemos las operaciones READ
-        logger.info("\n--- Probando operaciones READ ---")
+        # We test the READ operations
+        logger.info("\n--- Testing READ operations ---")
         
-        # Obtener transacción por ID
-        transaccion_obtenida = transaction_manager.get_transaction_by_id(transaction_id)
-        if transaccion_obtenida:
-            logger.info(f"✅ Transacción encontrada: {transaccion_obtenida.description} - ${transaccion_obtenida.amount}")
+        # We get the transaction by ID
+        transaction_obtained = get_transaction_by_id(transaction_id)
+        if transaction_obtained:
+            logger.info(f"✅ Transaction found: {transaction_obtained.description} - ${transaction_obtained.amount}")
         else:
-            logger.error("❌ No se pudo obtener la transacción")
+            logger.error("❌ We couldn't get the transaction")
         
-        # Obtener transacciones del usuario
-        transacciones_usuario = transaction_manager.get_transactions_by_user(user_id, limit=5)
-        logger.info(f"✅ Transacciones del usuario: {len(transacciones_usuario)} encontradas")
-        for t in transacciones_usuario:
-            print(f"  - {t.type}: ${t.amount} - {t.description}")
+        # We get the transactions of the user
+        transactions_user = get_transactions_by_user(user_id, limit=5)
+        logger.info(f"✅ Transactions of the user: {len(transactions_user)} found")
+        for t in transactions_user:
+            logger.info(f"  - {t.type}: ${t.amount} - {t.description}")
         
-        # Probemos las operaciones UPDATE y DELETE
-        logger.info("\n--- Probando operaciones UPDATE y DELETE ---")
+        # We test the UPDATE and DELETE operations
+        logger.info("\n--- Testing UPDATE and DELETE operations ---")
         
-        # Actualizar la transacción
-        transaccion_obtenida.amount = 75.0
-        transaccion_obtenida.description = "Almuerzo en restaurante (actualizado)"
+        # We update the transaction
+        transaction_obtained.amount = 75.0
+        transaction_obtained.description = "Almuerzo en restaurante (actualizado)"
         
-        if transaction_manager.update_transaction(transaccion_obtenida):
-            logger.info("✅ Transacción actualizada exitosamente")
+        if update_transaction(transaction_obtained):
+            logger.info("✅ Transaction updated successfully")
         else:
-            logger.error("❌ Error actualizando la transacción")
+            logger.error("❌ Error updating the transaction")
         
-        # Verificar la actualización
-        transaccion_actualizada = transaction_manager.get_transaction_by_id(transaction_id)
-        if transaccion_actualizada:
-            logger.info(f"✅ Transacción actualizada: ${transaccion_actualizada.amount} - {transaccion_actualizada.description}")
+        # We check the update
+        transaction_updated = get_transaction_by_id(transaction_id)
+        if transaction_updated:
+            logger.info(f"✅ Transaction updated: ${transaction_updated.amount} - {transaction_updated.description}")
         
-        # Eliminar la transacción (opcional - comentado para no perder datos)
-        # if transaction_manager.delete_transaction(transaction_id):
-        #     logger.info("✅ Transacción eliminada exitosamente")
+        # We delete the transaction (optional - commented to not lose data)
+        # if delete_transaction(transaction_id):
+        #     logger.info("✅ Transaction deleted successfully")
         # else:
-        #     print("❌ Error eliminando la transacción")
+        #     logger.error("❌ Error deleting the transaction")
             
     else:
-        print("😞 No se pudo guardar la transacción")
+        logger.error("😞 We couldn't save the transaction")

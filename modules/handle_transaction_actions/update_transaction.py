@@ -1,16 +1,16 @@
 import logging
 
 from entities.transaction import Transaction
+from modules.init_database import get_db_connection
 
 logger = logging.getLogger(__name__)
 
-def update_transaction(self, transaction: Transaction) -> bool:
-
+def update_transaction(transaction: Transaction) -> bool:
     if not transaction.id:
         logger.error("Transaction ID is required for update")
         return False
 
-    conn = self.db_manager.get_connection()
+    conn = get_db_connection()
     if not conn:
         logger.error("There was an error getting the connection to the database")
         return False

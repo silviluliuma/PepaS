@@ -1,10 +1,12 @@
 import logging
+
 from entities.user import User
+from modules.init_database import get_db_connection
 
 logger = logging.getLogger(__name__)
 
-def get_user_by_email(self, email: str) -> User | None:
-        conn = self.db_manager.get_connection()
+def get_user_by_email(email: str) -> User | None:
+        conn = get_db_connection()
         if not conn:
             logger.error("There was an error getting the connection to the database")
             return None

@@ -1,10 +1,14 @@
 import logging
-from modules.init_database import init_database
+
+from modules.init_database import get_db_connection
 
 logger = logging.getLogger(__name__)
 
 def delete_user(user_id: int) -> bool:
-    conn = init_database()
+    conn = get_db_connection()
+    if not conn:
+        logger.error("There was an error getting the connection to the database")
+        return False
 
     try:
         with conn.cursor() as cursor:

@@ -1,12 +1,28 @@
 import logging
+import psycopg2
+
 from constants.db_config import DB_CONFIG
 
 logger = logging.getLogger(__name__)
 
-def init_database(self):
-    self.config = DB_CONFIG
-    conn = self.get_connection()
-    if not conn:
-        logger.error("There was an error getting the connection to the database")
-        return False
-    return conn
+def get_db_connection():
+    try:
+        conn = psycopg2.connect(
+            host=DB_CONFIG["host"],
+            port=DB_CONFIG["port"],
+            user=DB_CONFIG["user"],
+            password=DB_CONFIG["password"],
+            database=DB_CONFIG["database"]
+        )
+        return conn
+    except Exception as e:
+        logger.error(f"There was an error connecting to the database: {e}")
+        return None
+
+def init_database():
+    conn = get_db_connection()
+    if conn:
+        logger.info("Database connection established successfully")
+        conn.close()
+        return True
+    return False
