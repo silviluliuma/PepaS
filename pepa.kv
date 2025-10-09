@@ -1,5 +1,183 @@
 #:kivy 2.2.0
 
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 40
+        spacing: 20
+        canvas.before:
+            Color:
+                rgba: 0.97, 0.97, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        
+        # Espaciador superior
+        Widget:
+            size_hint_y: 0.25
+        
+        # Título
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: 150
+            spacing: 0
+            
+            Label:
+                text: "🐶"
+                font_size: '50sp'
+                size_hint_y: None
+                height: 60
+            
+            Label:
+                text: "Pepa$"
+                font_size: '48sp'
+                bold: True
+                color: 0.2, 0.3, 0.6, 1
+                size_hint_y: None
+                height: 55
+            
+            Widget:
+                size_hint_y: None
+                height: 10
+            
+            Label:
+                text: "Inicia sesión"
+                font_size: '20sp'
+                color: 0.4, 0.4, 0.5, 1
+                size_hint_y: None
+                height: 25
+        
+        # Espaciador
+        Widget:
+            size_hint_y: 0.15
+        
+        # Card para el formulario de login
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 20
+            padding: 25
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20, 20, 20, 20]
+            
+            # Email
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: 85
+                spacing: 8
+                
+                Label:
+                    text: "Email"
+                    font_size: '16sp'
+                    bold: True
+                    color: 0.3, 0.3, 0.4, 1
+                    size_hint_y: None
+                    height: 30
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+                
+                TextInput:
+                    id: email
+                    hint_text: "tu@email.com"
+                    size_hint_y: None
+                    height: 50
+                    font_size: '18sp'
+                    multiline: False
+                    padding: [15, 12]
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0, 0, 0, 1
+                    hint_text_color: 0.6, 0.6, 0.6, 1
+                    cursor_color: 0, 0, 0, 1
+            
+            # Contraseña
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: 85
+                spacing: 8
+                
+                Label:
+                    text: "Contraseña"
+                    font_size: '16sp'
+                    bold: True
+                    color: 0.3, 0.3, 0.4, 1
+                    size_hint_y: None
+                    height: 30
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+                
+                TextInput:
+                    id: password
+                    hint_text: "Tu contraseña"
+                    password: True
+                    size_hint_y: None
+                    height: 50
+                    font_size: '18sp'
+                    multiline: False
+                    padding: [15, 12]
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0, 0, 0, 1
+                    hint_text_color: 0.6, 0.6, 0.6, 1
+                    cursor_color: 0, 0, 0, 1
+        
+        # Mensaje de feedback
+        Label:
+            text: root.mensaje
+            color: (0.2, 0.8, 0.3, 1) if root.mensaje.startswith("✅") else (0.9, 0.2, 0.2, 1)
+            font_size: '15sp'
+            bold: True
+            size_hint_y: None
+            height: 35
+        
+        # Espaciador
+        Widget:
+            size_hint_y: 0.1
+        
+        # Botón login
+        Button:
+            text: "🐕 Iniciar Sesión"
+            size_hint_y: None
+            height: 65
+            font_size: '20sp'
+            bold: True
+            background_normal: ''
+            background_color: 0, 0, 0, 0
+            color: 1, 1, 1, 1
+            on_release: root.login()
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.6, 0.86, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [15, 15, 15, 15]
+        
+        # Botón registrar
+        Button:
+            text: "📝 Crear cuenta nueva"
+            size_hint_y: None
+            height: 50
+            font_size: '16sp'
+            background_normal: ''
+            background_color: 0, 0, 0, 0
+            color: 0.4, 0.4, 0.5, 1
+            on_release: app.root.current = "menu"  # Por ahora va al menú
+            canvas.before:
+                Color:
+                    rgba: 0.95, 0.95, 0.95, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [10, 10, 10, 10]
+
 <MenuScreen>:
     BoxLayout:
         orientation: 'vertical'
@@ -237,18 +415,10 @@
                     font_size: '20sp'
                     multiline: False
                     padding: [15, 12]
-                    background_normal: ''
-                    background_color: 0, 0, 0, 0
-                    foreground_color: 0.2, 0.2, 0.2, 1
-                    hint_text_color: 0.7, 0.7, 0.7, 1
-                    cursor_color: 0.2, 0.6, 0.86, 1
-                    canvas.before:
-                        Color:
-                            rgba: 0.95, 0.96, 0.98, 1
-                        RoundedRectangle:
-                            pos: self.pos
-                            size: self.size
-                            radius: [10, 10, 10, 10]
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0, 0, 0, 1
+                    hint_text_color: 0.6, 0.6, 0.6, 1
+                    cursor_color: 0, 0, 0, 1
             
             # Descripción
             BoxLayout:
@@ -276,18 +446,10 @@
                     font_size: '18sp'
                     multiline: True
                     padding: [15, 12]
-                    background_normal: ''
-                    background_color: 0, 0, 0, 0
-                    foreground_color: 0.2, 0.2, 0.2, 1
-                    hint_text_color: 0.7, 0.7, 0.7, 1
-                    cursor_color: 0.2, 0.6, 0.86, 1
-                    canvas.before:
-                        Color:
-                            rgba: 0.95, 0.96, 0.98, 1
-                        RoundedRectangle:
-                            pos: self.pos
-                            size: self.size
-                            radius: [10, 10, 10, 10]
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0, 0, 0, 1
+                    hint_text_color: 0.6, 0.6, 0.6, 1
+                    cursor_color: 0, 0, 0, 1
         
         # Mensaje de feedback
         Label:

@@ -1,8 +1,10 @@
+import os
+
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager
 from kivy.lang import Builder
-import os
 
+from app_entities.login_screen import LoginScreen
 from app_entities.menu_screen import MenuScreen
 from app_entities.add_transaction_screen import AddTransactionScreen
 
@@ -12,7 +14,8 @@ class PepaApp(App):
         Builder.load_file(kv_path)
         
         sm = ScreenManager()
+        sm.add_widget(LoginScreen(name="login"))
         sm.add_widget(MenuScreen(name="menu"))
         sm.add_widget(AddTransactionScreen(name="add_transaction"))
-        sm.current = "menu"
+        sm.current = "login"
         return sm

@@ -12,7 +12,7 @@ class AddTransactionScreen(Screen):
         monto = self.ids.monto.text
         descripcion = self.ids.descripcion.text
 
-        # Convertir texto español a inglés para la base de datos
+        # Convertir texto español a inglés para la base de datos TO DO: hacer bien el mapeo
         tipo_map = {
             "Gasto": "expense",
             "Ingreso": "income"
@@ -30,6 +30,7 @@ class AddTransactionScreen(Screen):
                 description=descripcion,
                 created_at=None
             )
+            create_transaction(transaction)
             self.mensaje = f"✅ ¡Guau! Transacción guardada con éxito 🦴"
             self.ids.monto.text = ""
             self.ids.descripcion.text = ""
