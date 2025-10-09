@@ -14,13 +14,14 @@ def create_user(user: User) -> int | None:
         try:
             with conn.cursor() as cursor:
                 cursor.execute("""
-                    INSERT INTO users (user_name, user_email, user_phone, created_at)
-                    VALUES (%s, %s, %s, %s)
+                    INSERT INTO users (user_name, user_email, user_phone, user_password_hash, created_at)
+                    VALUES (%s, %s, %s, %s, %s)
                     RETURNING id
                 """, (
                     user.name,
                     user.email,
                     user.phone,
+                    user.password_hash,
                     user.created_at,
                 ))
                 

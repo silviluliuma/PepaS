@@ -4,10 +4,10 @@ from typing import Optional
 
 @dataclass
 class Transaction:
-    id: Optional[int]
-    user_id: Optional[int]
-    type: str
-    amount: float
-    category_id: Optional[int]
-    created_at: Optional[datetime]
-    description: str = ""
+    id: Optional[int] = None
+    user_id: Optional[int] = None
+    type: Optional[str] = None
+    amount: Optional[float] = None
+    category_id: Optional[int] = None
+    created_at: Optional[datetime] = datetime.now()
+    description: Optional[str] = None

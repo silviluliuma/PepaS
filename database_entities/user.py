@@ -4,8 +4,9 @@ from typing import Optional
 
 @dataclass
 class User:
-    id: Optional[int]
-    name: str
-    email: str
-    phone: str
-    created_at: Optional[datetime]
+    id: Optional[int] = None
+    name: Optional[str] = None
+    email: Optional[str] = None
+    phone: Optional[str] = None
+    password_hash: Optional[str] = None
+    created_at: Optional[datetime] = datetime.now()

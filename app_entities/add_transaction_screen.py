@@ -1,5 +1,6 @@
-from kivy.uix.screenmanager import Screen
+from kivy.app import App
 from kivy.properties import StringProperty
+from kivy.uix.screenmanager import Screen
 
 from database_entities.transaction import Transaction
 from modules.handle_transaction_actions.create_transaction import create_transaction
@@ -20,10 +21,16 @@ class AddTransactionScreen(Screen):
         tipo = tipo_map.get(tipo_text, "expense")
 
         try:
+            # Obtener el usuario actual de la sesión
+            current_user_id = App.get_running_app().get_current_user_id()
+            if not current_user_id:
+                self.mensaje = "❌ ¡Guau! Debes iniciar sesión primero 🐕"
+                return
+            
             monto = float(monto)
             transaction = Transaction(
                 id=None,
-                user_id=1,
+                user_id=current_user_id,
                 type=tipo,
                 amount=monto,
                 category_id=None,

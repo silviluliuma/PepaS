@@ -14,7 +14,7 @@ def get_user_by_email(email: str) -> User | None:
         try:
             with conn.cursor() as cursor:
                 cursor.execute("""
-                    SELECT id, user_name, user_email, user_phone, created_at
+                    SELECT id, user_name, user_email, user_phone, user_password_hash, created_at
                     FROM users
                     WHERE user_email = %s
                 """, (email,))
@@ -26,7 +26,8 @@ def get_user_by_email(email: str) -> User | None:
                         name=result[1],
                         email=result[2],
                         phone=result[3],
-                        created_at=result[4]
+                        password_hash=result[4],
+                        created_at=result[5]
                     )
                 return None
                 

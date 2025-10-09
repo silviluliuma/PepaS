@@ -162,14 +162,14 @@
         
         # Botón registrar
         Button:
-            text: "📝 Crear cuenta nueva"
+            text: "📝 Don't have an account? Create one"
             size_hint_y: None
             height: 50
             font_size: '16sp'
             background_normal: ''
             background_color: 0, 0, 0, 0
             color: 0.4, 0.4, 0.5, 1
-            on_release: app.root.current = "menu"  # Por ahora va al menú
+            on_release: app.root.current = "new_user"
             canvas.before:
                 Color:
                     rgba: 0.95, 0.95, 0.95, 1
@@ -177,6 +177,258 @@
                     pos: self.pos
                     size: self.size
                     radius: [10, 10, 10, 10]
+
+<NewUserScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 40
+        spacing: 20
+        canvas.before:
+            Color:
+                rgba: 0.97, 0.97, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        
+        # Header con título y botón volver
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 60
+            spacing: 15
+            
+            Button:
+                text: "←"
+                size_hint_x: None
+                width: 60
+                font_size: '28sp'
+                bold: True
+                background_normal: ''
+                background_color: 0, 0, 0, 0
+                color: 0.3, 0.3, 0.3, 1
+                on_release: app.root.current = "login"
+                canvas.before:
+                    Color:
+                        rgba: 0.9, 0.9, 0.9, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [12, 12, 12, 12]
+            
+            Label:
+                text: "🐕 Crear Nueva Cuenta"
+                font_size: '26sp'
+                bold: True
+                color: 0.2, 0.3, 0.6, 1
+                halign: 'left'
+                valign: 'middle'
+                text_size: self.size
+        
+        Widget:
+            size_hint_y: None
+            height: 10
+        
+        # Card para el formulario de registro
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 18
+            padding: 25
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20, 20, 20, 20]
+            
+            # Nombre
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: 85
+                spacing: 8
+                
+                Label:
+                    text: "Nombre completo"
+                    font_size: '16sp'
+                    bold: True
+                    color: 0.3, 0.3, 0.4, 1
+                    size_hint_y: None
+                    height: 30
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+                
+                TextInput:
+                    id: name
+                    hint_text: "Tu nombre completo"
+                    size_hint_y: None
+                    height: 50
+                    font_size: '18sp'
+                    multiline: False
+                    padding: [15, 12]
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0, 0, 0, 1
+                    hint_text_color: 0.6, 0.6, 0.6, 1
+                    cursor_color: 0, 0, 0, 1
+            
+            # Email
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: 85
+                spacing: 8
+                
+                Label:
+                    text: "Email"
+                    font_size: '16sp'
+                    bold: True
+                    color: 0.3, 0.3, 0.4, 1
+                    size_hint_y: None
+                    height: 30
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+                
+                TextInput:
+                    id: email
+                    hint_text: "tu@email.com"
+                    size_hint_y: None
+                    height: 50
+                    font_size: '18sp'
+                    multiline: False
+                    padding: [15, 12]
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0, 0, 0, 1
+                    hint_text_color: 0.6, 0.6, 0.6, 1
+                    cursor_color: 0, 0, 0, 1
+            
+            # Phone
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: 85
+                spacing: 8
+                
+                Label:
+                    text: "Phone Number"
+                    font_size: '16sp'
+                    bold: True
+                    color: 0.3, 0.3, 0.4, 1
+                    size_hint_y: None
+                    height: 30
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+                
+                TextInput:
+                    id: phone
+                    hint_text: "+34000000000"
+                    size_hint_y: None
+                    height: 50
+                    font_size: '18sp'
+                    multiline: False
+                    padding: [15, 12]
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0, 0, 0, 1
+                    hint_text_color: 0.6, 0.6, 0.6, 1
+                    cursor_color: 0, 0, 0, 1
+            
+            # Contraseña
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: 85
+                spacing: 8
+                
+                Label:
+                    text: "Contraseña"
+                    font_size: '16sp'
+                    bold: True
+                    color: 0.3, 0.3, 0.4, 1
+                    size_hint_y: None
+                    height: 30
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+                
+                TextInput:
+                    id: password
+                    hint_text: "Mínimo 6 caracteres"
+                    password: True
+                    size_hint_y: None
+                    height: 50
+                    font_size: '18sp'
+                    multiline: False
+                    padding: [15, 12]
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0, 0, 0, 1
+                    hint_text_color: 0.6, 0.6, 0.6, 1
+                    cursor_color: 0, 0, 0, 1
+            
+            # Confirmar contraseña
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: 85
+                spacing: 8
+                
+                Label:
+                    text: "Confirmar contraseña"
+                    font_size: '16sp'
+                    bold: True
+                    color: 0.3, 0.3, 0.4, 1
+                    size_hint_y: None
+                    height: 30
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+                
+                TextInput:
+                    id: confirm_password
+                    hint_text: "Repite tu contraseña"
+                    password: True
+                    size_hint_y: None
+                    height: 50
+                    font_size: '18sp'
+                    multiline: False
+                    padding: [15, 12]
+                    background_color: 1, 1, 1, 1
+                    foreground_color: 0, 0, 0, 1
+                    hint_text_color: 0.6, 0.6, 0.6, 1
+                    cursor_color: 0, 0, 0, 1
+        
+        # Mensaje de feedback
+        Label:
+            text: root.mensaje
+            color: (0.2, 0.8, 0.3, 1) if root.mensaje.startswith("✅") else (0.9, 0.2, 0.2, 1)
+            font_size: '15sp'
+            bold: True
+            size_hint_y: None
+            height: 35
+        
+        # Espaciador
+        Widget:
+            size_hint_y: 1
+        
+        # Botón crear cuenta
+        Button:
+            text: "🐕 Crear Cuenta"
+            size_hint_y: None
+            height: 60
+            font_size: '20sp'
+            bold: True
+            background_normal: ''
+            background_color: 0, 0, 0, 0
+            color: 1, 1, 1, 1
+            on_release: root.create_account()
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.7, 0.4, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [15, 15, 15, 15]
 
 <MenuScreen>:
     BoxLayout:
