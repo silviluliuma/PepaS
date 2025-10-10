@@ -3,31 +3,28 @@
 <LoginScreen>:
     BoxLayout:
         orientation: 'vertical'
-        padding: 40
-        spacing: 20
+        padding: 30
+        spacing: 0
         canvas.before:
             Color:
-                rgba: 0.97, 0.97, 1, 1
+                rgba: 0.96, 0.97, 0.99, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
         
-        # Espaciador superior
-        Widget:
-            size_hint_y: 0.25
-        
-        # Título
+        # Header with improved logo
         BoxLayout:
             orientation: 'vertical'
             size_hint_y: None
-            height: 150
+            height: 120
             spacing: 0
             
-            Label:
-                text: "🐶"
-                font_size: '50sp'
+            Image:
+                source: "images/emojis/dog.png"
                 size_hint_y: None
                 height: 60
+                allow_stretch: True
+                keep_ratio: True
             
             Label:
                 text: "Pepa$"
@@ -42,43 +39,38 @@
                 height: 10
             
             Label:
-                text: "Inicia sesión"
-                font_size: '20sp'
+                text: "Tu gestor de finanzas perruno"
+                font_size: '16sp'
                 color: 0.4, 0.4, 0.5, 1
                 size_hint_y: None
-                height: 25
+                height: 30
         
-        # Espaciador
+        # Spacer
         Widget:
-            size_hint_y: 0.15
+            size_hint_y: 0.4
         
-        # Card para el formulario de login
+        # Card for login form
         BoxLayout:
             orientation: 'vertical'
-            spacing: 20
-            padding: 25
-            canvas.before:
-                Color:
-                    rgba: 1, 1, 1, 1
-                RoundedRectangle:
-                    pos: self.pos
-                    size: self.size
-                    radius: [20, 20, 20, 20]
+            spacing: 25
+            padding: [30, 35, 30, 35]
+            size_hint_x: 0.85
+            pos_hint: {'center_x': 0.5}
             
             # Email
             BoxLayout:
                 orientation: 'vertical'
                 size_hint_y: None
-                height: 85
-                spacing: 8
+                height: 90
+                spacing: 12
                 
                 Label:
                     text: "Email"
-                    font_size: '16sp'
+                    font_size: '15sp'
                     bold: True
-                    color: 0.3, 0.3, 0.4, 1
+                    color: 0.2, 0.2, 0.3, 1
                     size_hint_y: None
-                    height: 30
+                    height: 25
                     halign: 'left'
                     valign: 'middle'
                     text_size: self.size
@@ -87,70 +79,77 @@
                     id: email
                     hint_text: "tu@email.com"
                     size_hint_y: None
-                    height: 50
-                    font_size: '18sp'
+                    height: 56
+                    font_size: '16sp'
                     multiline: False
-                    padding: [15, 12]
-                    background_color: 1, 1, 1, 1
-                    foreground_color: 0, 0, 0, 1
-                    hint_text_color: 0.6, 0.6, 0.6, 1
-                    cursor_color: 0, 0, 0, 1
+                    padding: [18, 16]
+                    background_color: 0.98, 0.98, 0.99, 1
+                    foreground_color: 0.15, 0.15, 0.25, 1
+                    hint_text_color: 0.6, 0.6, 0.65, 1
+                    cursor_color: 0.2, 0.6, 0.86, 1
             
-            # Contraseña
+            # Password
             BoxLayout:
                 orientation: 'vertical'
                 size_hint_y: None
-                height: 85
-                spacing: 8
+                height: 90
+                spacing: 12
                 
                 Label:
                     text: "Contraseña"
-                    font_size: '16sp'
+                    font_size: '15sp'
                     bold: True
-                    color: 0.3, 0.3, 0.4, 1
+                    color: 0.2, 0.2, 0.3, 1
                     size_hint_y: None
-                    height: 30
+                    height: 25
                     halign: 'left'
                     valign: 'middle'
                     text_size: self.size
                 
                 TextInput:
                     id: password
-                    hint_text: "Tu contraseña"
+                    hint_text: "Introduce tu contraseña"
                     password: True
                     size_hint_y: None
-                    height: 50
-                    font_size: '18sp'
+                    height: 56
+                    font_size: '16sp'
                     multiline: False
-                    padding: [15, 12]
-                    background_color: 1, 1, 1, 1
-                    foreground_color: 0, 0, 0, 1
-                    hint_text_color: 0.6, 0.6, 0.6, 1
-                    cursor_color: 0, 0, 0, 1
+                    padding: [18, 16]
+                    background_color: 0.98, 0.98, 0.99, 1
+                    foreground_color: 0.15, 0.15, 0.25, 1
+                    hint_text_color: 0.6, 0.6, 0.65, 1
+                    cursor_color: 0.2, 0.6, 0.86, 1
         
-        # Mensaje de feedback
+        # Feedback message
         Label:
             text: root.mensaje
-            color: (0.2, 0.8, 0.3, 1) if root.mensaje.startswith("✅") else (0.9, 0.2, 0.2, 1)
+            color: (0.2, 0.8, 0.3, 1) if "success" in root.mensaje or "correctly" in root.mensaje else (0.9, 0.2, 0.2, 1) #TODO MAKE THIS BETTER
             font_size: '15sp'
             bold: True
             size_hint_y: None
             height: 35
         
-        # Espaciador
+        # Spacer
         Widget:
             size_hint_y: 0.1
         
-        # Botón login
-        Button:
-            text: "🐕 Iniciar Sesión"
+        # Spacer before buttons
+        Widget:
             size_hint_y: None
-            height: 65
-            font_size: '20sp'
+            height: 20
+        
+        # Main login button
+        Button:
+            text: "¡Bienvenido de nuevo!"
+            size_hint_y: None
+            size_hint_x: 0.85
+            height: 56
+            font_size: '16sp'
             bold: True
             background_normal: ''
             background_color: 0, 0, 0, 0
             color: 1, 1, 1, 1
+            pos_hint: {'center_x': 0.5}
             on_release: root.login()
             canvas.before:
                 Color:
@@ -158,25 +157,32 @@
                 RoundedRectangle:
                     pos: self.pos
                     size: self.size
-                    radius: [15, 15, 15, 15]
+                    radius: [14, 14, 14, 14]
         
-        # Botón registrar
-        Button:
-            text: "📝 Don't have an account? Create one"
+        # Spacer between buttons
+        Widget:
             size_hint_y: None
-            height: 50
-            font_size: '16sp'
+            height: 16
+        
+        # Secondary button
+        Button:
+            text: "¿Todavía no tienes una cuenta? Hazte una y deja que Pepa te aconseje"
+            size_hint_y: None
+            size_hint_x: 0.85
+            height: 44
+            font_size: '14sp'
             background_normal: ''
             background_color: 0, 0, 0, 0
-            color: 0.4, 0.4, 0.5, 1
+            color: 0.5, 0.5, 0.6, 1
+            pos_hint: {'center_x': 0.5}
             on_release: app.root.current = "new_user"
             canvas.before:
                 Color:
-                    rgba: 0.95, 0.95, 0.95, 1
+                    rgba: 0.96, 0.97, 0.98, 1
                 RoundedRectangle:
                     pos: self.pos
                     size: self.size
-                    radius: [10, 10, 10, 10]
+                    radius: [12, 12, 12, 12]
 
 <NewUserScreen>:
     BoxLayout:
@@ -190,7 +196,7 @@
                 pos: self.pos
                 size: self.size
         
-        # Header con título y botón volver
+        # Header with title and back button
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: None
@@ -215,20 +221,31 @@
                         size: self.size
                         radius: [12, 12, 12, 12]
             
-            Label:
-                text: "🐕 Crear Nueva Cuenta"
-                font_size: '26sp'
-                bold: True
-                color: 0.2, 0.3, 0.6, 1
-                halign: 'left'
-                valign: 'middle'
-                text_size: self.size
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+                
+                Image:
+                    source: "images/emojis/dog.png"
+                    size_hint_x: None
+                    width: 40
+                    allow_stretch: True
+                    keep_ratio: True
+                
+                Label:
+                    text: "Crear nueva cuenta"
+                    font_size: '26sp'
+                    bold: True
+                    color: 0.2, 0.3, 0.6, 1
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
         
         Widget:
             size_hint_y: None
             height: 10
         
-        # Card para el formulario de registro
+        # Card for registration form
         BoxLayout:
             orientation: 'vertical'
             spacing: 18
@@ -241,7 +258,7 @@
                     size: self.size
                     radius: [20, 20, 20, 20]
             
-            # Nombre
+            # Full Name
             BoxLayout:
                 orientation: 'vertical'
                 size_hint_y: None
@@ -261,7 +278,7 @@
                 
                 TextInput:
                     id: name
-                    hint_text: "Tu nombre completo"
+                    hint_text: "Pepa Puente Martínez"
                     size_hint_y: None
                     height: 50
                     font_size: '18sp'
@@ -311,7 +328,7 @@
                 spacing: 8
                 
                 Label:
-                    text: "Phone Number"
+                    text: "Teléfono"
                     font_size: '16sp'
                     bold: True
                     color: 0.3, 0.3, 0.4, 1
@@ -323,7 +340,7 @@
                 
                 TextInput:
                     id: phone
-                    hint_text: "+34000000000"
+                    hint_text: "+34123456789"
                     size_hint_y: None
                     height: 50
                     font_size: '18sp'
@@ -334,7 +351,7 @@
                     hint_text_color: 0.6, 0.6, 0.6, 1
                     cursor_color: 0, 0, 0, 1
             
-            # Contraseña
+            # Password
             BoxLayout:
                 orientation: 'vertical'
                 size_hint_y: None
@@ -366,7 +383,7 @@
                     hint_text_color: 0.6, 0.6, 0.6, 1
                     cursor_color: 0, 0, 0, 1
             
-            # Confirmar contraseña
+            # Confirm Password
             BoxLayout:
                 orientation: 'vertical'
                 size_hint_y: None
@@ -374,7 +391,7 @@
                 spacing: 8
                 
                 Label:
-                    text: "Confirmar contraseña"
+                    text: "Repite la contraseña"
                     font_size: '16sp'
                     bold: True
                     color: 0.3, 0.3, 0.4, 1
@@ -386,7 +403,7 @@
                 
                 TextInput:
                     id: confirm_password
-                    hint_text: "Repite tu contraseña"
+                    hint_text: "Tu contraseña"
                     password: True
                     size_hint_y: None
                     height: 50
@@ -398,29 +415,25 @@
                     hint_text_color: 0.6, 0.6, 0.6, 1
                     cursor_color: 0, 0, 0, 1
         
-        # Mensaje de feedback
+        # Feedback message
         Label:
             text: root.mensaje
-            color: (0.2, 0.8, 0.3, 1) if root.mensaje.startswith("✅") else (0.9, 0.2, 0.2, 1)
+            color: (0.2, 0.8, 0.3, 1) if "success" in root.mensaje or "correctly" in root.mensaje else (0.9, 0.2, 0.2, 1)
             font_size: '15sp'
             bold: True
             size_hint_y: None
             height: 35
         
-        # Espaciador
+        # Spacer
         Widget:
             size_hint_y: 1
         
-        # Botón crear cuenta
+        # Create account button
         Button:
-            text: "🐕 Crear Cuenta"
             size_hint_y: None
             height: 60
-            font_size: '20sp'
-            bold: True
             background_normal: ''
             background_color: 0, 0, 0, 0
-            color: 1, 1, 1, 1
             on_release: root.create_account()
             canvas.before:
                 Color:
@@ -429,6 +442,24 @@
                     pos: self.pos
                     size: self.size
                     radius: [15, 15, 15, 15]
+            
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+                padding: [20, 0]
+                
+                Image:
+                    source: "images/emojis/dog.png"
+                    size_hint_x: None
+                    width: 30
+                    allow_stretch: True
+                    keep_ratio: True
+                
+                Label:
+                    text: "Crear nueva cuenta"
+                    font_size: '20sp'
+                    bold: True
+                    color: 1, 1, 1, 1
 
 <MenuScreen>:
     BoxLayout:
@@ -442,22 +473,23 @@
                 pos: self.pos
                 size: self.size
         
-        # Espaciador superior
+        # Top spacer
         Widget:
             size_hint_y: 0.3
         
-        # Título
+        # Title
         BoxLayout:
             orientation: 'vertical'
             size_hint_y: None
             height: 150
             spacing: 0
             
-            Label:
-                text: "🐶"
-                font_size: '50sp'
+            Image:
+                source: "images/emojis/dog.png"
                 size_hint_y: None
                 height: 60
+                allow_stretch: True
+                keep_ratio: True
             
             Label:
                 text: "Pepa$"
@@ -478,13 +510,13 @@
                 size_hint_y: None
                 height: 25
         
-        # Espaciador
+        # Spacer
         Widget:
             size_hint_y: 0.2
         
-        # Botón agregar transacción
+        # Add transaction button
         Button:
-            text: "🦴 Agregar gasto o ingreso"
+            text: "Añadir gasto o ingreso"
             size_hint_y: None
             height: 65
             font_size: '20sp'
@@ -501,9 +533,9 @@
                     size: self.size
                     radius: [15, 15, 15, 15]
         
-        # Botón ver transacciones
+        # View transactions button
         Button:
-            text: "🐕 Ver mis transacciones"
+            text: "Ver mi historial"
             size_hint_y: None
             height: 65
             font_size: '20sp'
@@ -519,13 +551,13 @@
                     size: self.size
                     radius: [15, 15, 15, 15]
         
-        # Espaciador
+        # Spacer
         Widget:
             size_hint_y: 1
         
-        # Botón salir
+        # Exit button
         Button:
-            text: "🚪 Salir"
+            text: "Salir"
             size_hint_y: None
             height: 50
             font_size: '16sp'
@@ -553,7 +585,7 @@
                 pos: self.pos
                 size: self.size
         
-        # Header con título y botón volver
+        # Header with title and back button
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: None
@@ -578,20 +610,31 @@
                         size: self.size
                         radius: [12, 12, 12, 12]
             
-            Label:
-                text: "🦴 Nueva Transacción"
-                font_size: '26sp'
-                bold: True
-                color: 0.2, 0.3, 0.6, 1
-                halign: 'left'
-                valign: 'middle'
-                text_size: self.size
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+                
+                Image:
+                    source: "images/emojis/bone.png"
+                    size_hint_x: None
+                    width: 40
+                    allow_stretch: True
+                    keep_ratio: True
+                
+                Label:
+                    text: "Nueva transacción"
+                    font_size: '26sp'
+                    bold: True
+                    color: 0.2, 0.3, 0.6, 1
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
         
         Widget:
             size_hint_y: None
             height: 10
         
-        # Card para el formulario
+        # Card for the form
         BoxLayout:
             orientation: 'vertical'
             spacing: 18
@@ -604,7 +647,7 @@
                     size: self.size
                     radius: [20, 20, 20, 20]
             
-            # Tipo de transacción
+            # Transaction type
             BoxLayout:
                 orientation: 'vertical'
                 size_hint_y: None
@@ -640,7 +683,7 @@
                             size: self.size
                             radius: [10, 10, 10, 10]
             
-            # Monto
+            # Amount
             BoxLayout:
                 orientation: 'vertical'
                 size_hint_y: None
@@ -648,7 +691,7 @@
                 spacing: 8
                 
                 Label:
-                    text: "Monto ($)"
+                    text: "Cantidad (€)"
                     font_size: '16sp'
                     bold: True
                     color: 0.3, 0.3, 0.4, 1
@@ -660,7 +703,7 @@
                 
                 TextInput:
                     id: monto
-                    hint_text: "0.00"
+                    hint_text: "2.50"
                     input_filter: "float"
                     size_hint_y: None
                     height: 50
@@ -672,7 +715,7 @@
                     hint_text_color: 0.6, 0.6, 0.6, 1
                     cursor_color: 0, 0, 0, 1
             
-            # Descripción
+            # Description
             BoxLayout:
                 orientation: 'vertical'
                 size_hint_y: None
@@ -692,7 +735,7 @@
                 
                 TextInput:
                     id: descripcion
-                    hint_text: "Ej: Premios para Pepa, paseo al parque..."
+                    hint_text: "Chuches para Pepa, Veterinario de Pepa, Cama nueva para Pepa..."
                     size_hint_y: None
                     height: 100
                     font_size: '18sp'
@@ -703,29 +746,25 @@
                     hint_text_color: 0.6, 0.6, 0.6, 1
                     cursor_color: 0, 0, 0, 1
         
-        # Mensaje de feedback
+        # Feedback message
         Label:
             text: root.mensaje
-            color: (0.2, 0.8, 0.3, 1) if root.mensaje.startswith("✅") else (0.9, 0.2, 0.2, 1)
+            color: (0.2, 0.8, 0.3, 1) if "success" in root.mensaje or "correctly" in root.mensaje else (0.9, 0.2, 0.2, 1)
             font_size: '15sp'
             bold: True
             size_hint_y: None
             height: 35
         
-        # Espaciador
+        # Spacer
         Widget:
             size_hint_y: 1
         
-        # Botón guardar
+        # Save button
         Button:
-            text: "💾 Guardar Transacción"
             size_hint_y: None
             height: 60
-            font_size: '20sp'
-            bold: True
             background_normal: ''
             background_color: 0, 0, 0, 0
-            color: 1, 1, 1, 1
             on_release: root.guardar_transaccion()
             canvas.before:
                 Color:
@@ -734,3 +773,21 @@
                     pos: self.pos
                     size: self.size
                     radius: [15, 15, 15, 15]
+            
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+                padding: [20, 0]
+                
+                Image:
+                    source: "images/emojis/save.png"
+                    size_hint_x: None
+                    width: 30
+                    allow_stretch: True
+                    keep_ratio: True
+                
+                Label:
+                    text: "Guardar"
+                    font_size: '20sp'
+                    bold: True
+                    color: 1, 1, 1, 1

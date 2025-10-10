@@ -18,15 +18,15 @@ class NewUserScreen(Screen):
         confirm_password = self.ids.confirm_password.text
 
         if not name or not email or not password or not confirm_password or not phone:
-            self.mensaje = "❌ ¡Guau! Completa todos los campos 🐕"
+            self.mensaje = "¡Guau! Completa todos los campos"
             return
 
         if password != confirm_password:
-            self.mensaje = "❌ ¡Ups! Las contraseñas no coinciden 🐶"
+            self.mensaje = "¡Ups! Las contraseñas no coinciden"
             return
 
         if len(password) < 6:
-            self.mensaje = "❌ ¡Guau! La contraseña debe tener al menos 6 caracteres 🦴"
+            self.mensaje = "¡Guau! La contraseña debe tener al menos 6 caracteres"
             return
         
         password_hash = hashlib.sha256(password.encode()).hexdigest()
@@ -40,7 +40,7 @@ class NewUserScreen(Screen):
             )
             print(new_user)
             create_user(new_user)
-            self.mensaje = "✅ ¡Guau! Cuenta creada exitosamente 🦴"
+            self.mensaje = "¡Guau! Cuenta creada exitosamente"
             self.ids.name.text = ""
             self.ids.email.text = ""
             self.ids.phone.text = ""
@@ -48,4 +48,4 @@ class NewUserScreen(Screen):
             self.ids.confirm_password.text = ""
             self.manager.current = "login"
         except Exception as e:
-            self.mensaje = f"❌ ¡Ups! Algo salió mal: {e} 🐕" #CAMBIAR A LOGGING para que no le llegue al user
+            self.mensaje = f"¡Ups! Algo salió mal: {e}" #CAMBIAR A LOGGING para que no le llegue al user

@@ -14,7 +14,7 @@ class LoginScreen(Screen):
         password = self.ids.password.text
 
         if not email or not password:
-            self.mensaje = "❌ ¡Guau! Completa todos los campos 🐕"
+            self.mensaje = "¡Guau! Completa todos los campos"
             return
 
         try:
@@ -25,13 +25,13 @@ class LoginScreen(Screen):
                 if user.password_hash == login_password_hash:
                     # Guardar el usuario en la sesión
                     App.get_running_app().set_current_user(user)
-                    self.mensaje = "✅ ¡Guau! Login exitoso 🦴"
+                    self.mensaje = "¡Guau! Login exitoso"
                     self.ids.email.text = ""
                     self.ids.password.text = ""
                     self.manager.current = "menu"
                 else:
-                    self.mensaje = "❌ ¡Ups! Email o contraseña incorrectos 🐶"
+                    self.mensaje = "¡Ups! Email o contraseña incorrectos"
             else:
-                self.mensaje = "❌ ¡Ups! Email o contraseña incorrectos 🐶"
+                self.mensaje = "¡Ups! Email o contraseña incorrectos"
         except Exception as e:
-            self.mensaje = f"❌ ¡Ups! Algo salió mal: {e} 🐕" #CAMBIAR A LOGGING para que no le llegue al user
+            self.mensaje = f"¡Ups! Algo salió mal: {e}" #CAMBIAR A LOGGING para que no le llegue al user
