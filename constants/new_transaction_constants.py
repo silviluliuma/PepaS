@@ -1,0 +1,4 @@
+TRANSACTION_TYPE_MAP = {
+    "GASTO": 0,
+    "INGRESO": 1
+}

@@ -543,6 +543,7 @@
             background_normal: ''
             background_color: 0, 0, 0, 0
             color: 1, 1, 1, 1
+            on_release: app.root.current = "see_history"
             canvas.before:
                 Color:
                     rgba: 0.35, 0.7, 0.5, 1
@@ -667,8 +668,8 @@
                 
                 Spinner:
                     id: tipo
-                    text: "Gasto"
-                    values: ["Gasto", "Ingreso"]
+                    text: "GASTO"
+                    values: ["GASTO", "INGRESO"]
                     size_hint_y: None
                     height: 50
                     font_size: '18sp'
@@ -791,3 +792,85 @@
                     font_size: '20sp'
                     bold: True
                     color: 1, 1, 1, 1
+
+<SeeHistoryScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 30
+        spacing: 15
+        canvas.before:
+            Color:
+                rgba: 0.97, 0.97, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        
+        # Header with title and back button
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 60
+            spacing: 15
+            
+            Button:
+                text: "←"
+                size_hint_x: None
+                width: 60
+                font_size: '28sp'
+                bold: True
+                background_normal: ''
+                background_color: 0, 0, 0, 0
+                color: 0.3, 0.3, 0.3, 1
+                on_release: app.root.current = "menu"
+                canvas.before:
+                    Color:
+                        rgba: 0.9, 0.9, 0.9, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [12, 12, 12, 12]
+            
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+                
+                Image:
+                    source: "images/emojis/dog.png"
+                    size_hint_x: None
+                    width: 40
+                    allow_stretch: True
+                    keep_ratio: True
+                
+                Label:
+                    text: "Mi Historial"
+                    font_size: '26sp'
+                    bold: True
+                    color: 0.2, 0.3, 0.6, 1
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+        
+        Widget:
+            size_hint_y: None
+            height: 10
+        
+        # Placeholder for transactions list
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 10
+            padding: 20
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20, 20, 20, 20]
+            
+            Label:
+                text: "Aquí aparecerá tu historial de transacciones"
+                font_size: '18sp'
+                color: 0.5, 0.5, 0.5, 1
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.size

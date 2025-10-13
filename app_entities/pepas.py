@@ -8,6 +8,7 @@ from app_entities.login_screen import LoginScreen
 from app_entities.new_user_screen import NewUserScreen
 from app_entities.menu_screen import MenuScreen
 from app_entities.add_transaction_screen import AddTransactionScreen
+from app_entities.see_history_screen import SeeHistoryScreen
 
 class PepaApp(App):
     def __init__(self, **kwargs):
@@ -31,5 +32,6 @@ class PepaApp(App):
         sm.add_widget(NewUserScreen(name="new_user"))
         sm.add_widget(MenuScreen(name="menu"))
         sm.add_widget(AddTransactionScreen(name="add_transaction"))
+        sm.add_widget(SeeHistoryScreen(name="see_history"))
         sm.current = "login"
         return sm
